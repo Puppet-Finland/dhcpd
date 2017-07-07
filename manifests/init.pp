@@ -11,6 +11,12 @@
 #   and false.
 # [*ensure*]
 #   Status of dhcpd. Valid values are 'present' (default) and 'absent'.
+# [*interfaces_v4*]
+#   A space-separated string of interfaces on which dhcpd should listen. Defaults 
+#   to undef.
+# [*interfaces_v6*]
+#   A space-separate string of interfaces on which dhcpd6 should listen. Defaults 
+#   to undef.
 #
 # == Authors
 #
@@ -23,7 +29,10 @@
 class dhcpd
 (
     Boolean                  $manage = true,
-    Enum['present','absent'] $ensure = 'present'
+    Enum['present','absent'] $ensure = 'present',
+                             $interfaces_v4 = undef,
+                             $interfaces_v6 = undef
+
 
 ) inherits dhcpd::params
 {
@@ -31,6 +40,13 @@ class dhcpd
 if $manage {
     class { '::dhcpd::install':
         ensure => $ensure,
+    }
+
+    if $::osfamily == 'Debian' {
+        class { '::dhcpd::config::debian':
+            interfaces_v4 => $interfaces_v4,
+            interfaces_v6 => $interfaces_v6,
+        }
     }
 
     if $ensure == 'present' {

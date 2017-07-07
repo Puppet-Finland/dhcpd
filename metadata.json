@@ -1,10 +1,11 @@
 {
   "name": "puppetfinland-dhcpd",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Puppet-Finland team",
   "license": "BSD license",
   "summary": "Setup dhcpd",
   "source": "https://github.com/Puppet-Finland/puppet-dhcpd.git",
   "project_page": "https://github.com/Puppet-Finland/puppet-dhcpd",
-  "dependencies": [ ]
+  "dependencies": [
+    { "name": "puppetlabs/inifile", "version_requirement": ">= 1.4.0" } ]
 }
