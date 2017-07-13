@@ -7,5 +7,6 @@
   "source": "https://github.com/Puppet-Finland/puppet-dhcpd.git",
   "project_page": "https://github.com/Puppet-Finland/puppet-dhcpd",
   "dependencies": [
-    { "name": "puppetlabs/inifile", "version_requirement": ">= 1.4.0" } ]
+    { "name": "puppetlabs/inifile", "version_requirement": ">= 1.4.0" },
+    { "name": "puppetfinland/os", "version_requirement": ">= 0.5.5" } ]
 }

@@ -9,6 +9,9 @@
 # [*manage*]
 #   Whether to manage dhcpd using Puppet. Valid values are true (default) 
 #   and false.
+# [*manage_monit*]
+#   Whether to monitor dhcpd with monit. Valid values are true (default) and
+#   false.
 # [*ensure*]
 #   Status of dhcpd. Valid values are 'present' (default) and 'absent'.
 # [*interfaces_v4*]
@@ -29,9 +32,11 @@
 class dhcpd
 (
     Boolean                  $manage = true,
+    Boolean                  $manage_monit = true,
     Enum['present','absent'] $ensure = 'present',
                              $interfaces_v4 = undef,
-                             $interfaces_v6 = undef
+                             $interfaces_v6 = undef,
+    String                   $monitor_email = $::servermonitor
 
 
 ) inherits dhcpd::params
@@ -61,5 +66,13 @@ if $manage {
         ensure => $service_ensure,
         enable => $service_enable,
     }
+
+    if $manage_monit {
+        class { '::dhcpd::monit':
+            ensure        => $ensure,
+            monitor_email => $monitor_email,
+        }
+    }
+
 }
 }

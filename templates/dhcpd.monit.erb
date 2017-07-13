@@ -1,0 +1,6 @@
+### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
+
+check process dhcpd with pidfile <%= scope.lookupvar('dhcpd::params::pidfile') %>
+   start program = "<%= scope.lookupvar('dhcpd::params::service_start') %>"
+   stop  program = "<%= scope.lookupvar('dhcpd::params::service_stop') %>"
+   alert <%= scope.lookupvar('dhcpd::monit::monitor_email') %> with reminder on 480 cycles
